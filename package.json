@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@codemirror/lang-sql": "^6.7.0",
+    "@codemirror/state": "^6.4.1",
+    "@codemirror/view": "^6.28.4",
     "@tidbcloud/codemirror-extension-ai-widget": "^0.0.6",
     "@tidbcloud/codemirror-extension-cur-sql": "^0.0.6",
     "@tidbcloud/codemirror-extension-cur-sql-gutter": "^0.0.6",
