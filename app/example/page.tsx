@@ -1,7 +1,12 @@
+import dynamic from "next/dynamic";
+
+// editor-example must have default export when it's imported dynamically
+const EditorExample = dynamic(() => import("./editor-example"), { ssr: false });
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      Home
+    <main className="h-screen">
+      <EditorExample />
     </main>
   );
 }
