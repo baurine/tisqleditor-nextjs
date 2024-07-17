@@ -22,9 +22,10 @@ import {
   onSelectionChange,
 } from "@tidbcloud/codemirror-extension-events";
 
+import { useTheme } from "next-themes";
+
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/components/ui/use-toast";
-// import { useTheme } from '@/components/darkmode-toggle/theme-provider'
 import { delay } from "@/lib/delay";
 import { setLocalStorageItem } from "@/lib/env-vars";
 import { cn } from "@/lib/utils";
@@ -77,11 +78,11 @@ export default function EditorExample({
   theme?: string;
   withSelect?: boolean;
 }) {
-  // const { setTheme: setAppTheme } = useTheme()
+  const { setTheme: setAppTheme } = useTheme();
 
-  // useEffect(() => {
-  //   setAppTheme(theme === 'oneDark' || theme === 'dark' ? 'dark' : 'light')
-  // }, [theme])
+  useEffect(() => {
+    setAppTheme(theme === "oneDark" || theme === "dark" ? "dark" : "light");
+  }, [theme]);
 
   const [output, setOutput] = useState("");
 
