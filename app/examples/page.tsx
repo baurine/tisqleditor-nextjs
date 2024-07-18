@@ -1,5 +1,6 @@
 import { Github, Fullscreen } from "lucide-react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -37,12 +38,9 @@ export default function Page({
             <ExampleSelect />
             <EditorThemeSelect />
             <Button variant="ghost" size="icon">
-              <a
-                href={`/example?ex=${ex}&theme=${editorTheme}`}
-                target="_blank"
-              >
+              <Link href={`/example?ex=${ex}&theme=${editorTheme}`}>
                 <Fullscreen className="h-4 w-4" />
-              </a>
+              </Link>
             </Button>
 
             <div className="mr-auto"></div>
