@@ -1,17 +1,12 @@
 import { Github, Fullscreen } from "lucide-react";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 
+import { DynamicEditorExample } from "@/components/biz/dynamic-editor-example";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 import { ExampleSelect } from "./example-select";
 import { EditorThemeSelect } from "./editor-theme-select";
-
-// editor-example must have default export when it's imported dynamically
-const EditorExample = dynamic(() => import("../example/editor-example"), {
-  ssr: false,
-});
 
 export default function Page({
   searchParams,
@@ -21,7 +16,7 @@ export default function Page({
     theme?: string;
   };
 }) {
-  const ex = searchParams?.ex ?? "";
+  const ex = searchParams?.ex ?? "all";
   const editorTheme = searchParams?.theme ?? "oneDark";
 
   const showOutputBox = ex === "events" || ex === "all";
@@ -66,7 +61,11 @@ export default function Page({
               showOutputBox ? "h-[600px]" : "h-[400px]"
             )}
           >
-            <EditorExample example={ex} theme={editorTheme} withSelect={true} />
+            <DynamicEditorExample
+              example={ex}
+              theme={editorTheme}
+              withSelect={true}
+            />
           </div>
         </div>
       </div>

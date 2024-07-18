@@ -16,7 +16,7 @@ export function ExampleSelect() {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
 
-  const example = searchParams.get("ex") ?? "";
+  const example = searchParams.get("ex") ?? "all";
 
   function handleChange(v: string) {
     const params = new URLSearchParams(searchParams);

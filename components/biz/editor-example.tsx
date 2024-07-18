@@ -69,7 +69,7 @@ const EXAMPLE_DOCS: { [key: string]: string } = {
   "save-helper": DOC_4,
 };
 
-export default function EditorExample({
+export function EditorExample({
   example = "",
   theme = "",
   withSelect = false,
