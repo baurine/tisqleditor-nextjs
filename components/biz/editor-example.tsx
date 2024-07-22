@@ -82,7 +82,7 @@ export function EditorExample({
 
   useEffect(() => {
     setAppTheme(theme === "oneDark" || theme === "dark" ? "dark" : "light");
-  }, [theme]);
+  }, [theme, setAppTheme]);
 
   const [output, setOutput] = useState("");
 
