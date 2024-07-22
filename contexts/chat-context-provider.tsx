@@ -1,3 +1,5 @@
+"use client";
+
 import { useMemo } from 'react'
 import { ChatReq, EventType } from '@tidbcloud/codemirror-extension-ai-widget'
 
