@@ -2,7 +2,6 @@
 
 import { useMemo, useRef } from "react";
 import { useTheme } from "next-themes";
-// import dynamic from "next/dynamic";
 
 import { EditorView, placeholder } from "@codemirror/view";
 import { EditorState } from "@codemirror/state";
@@ -26,11 +25,6 @@ import { getCurDatabase } from "@tidbcloud/codemirror-extension-cur-sql";
 import { useFilesContext } from "@/contexts/files-context";
 import { SchemaRes, useSchemaContext } from "@/contexts/schema-context";
 import { useChatContext } from "@/contexts/chat-context";
-
-// const SQLEditor = dynamic(
-//   () => import("@tidbcloud/tisqleditor-react").then((mod) => mod.SQLEditor),
-//   { ssr: false }
-// );
 
 function convertSchemaToSQLConfig(dbList: SchemaRes): SQLConfig {
   const schema: any = {};
@@ -60,7 +54,21 @@ function convertSchemaToSQLConfig(dbList: SchemaRes): SQLConfig {
   return { schema, tables };
 }
 
-export function Editor() {
+// wholly shit!
+// when I use `export function Editor`, and dynamic load this file, next.js still reports prerender error, `ReferenceError: navigator is not defined`
+// after running `pnpm build`.
+// full code:
+//   const MyEditor = dynamic(() => import("./editor").then((mod) => mod.Editor), {
+//     ssr: false,
+//   });
+// build logs: https://vercel.com/baurines-projects/tisqleditor/5Y4HjQY6xeDYVCBCaBrpLxawdYPD?filter=errors
+//
+// then I export Editor as default, aka `export default function Editor`, then, the error is dismissed, can't understand it totally.
+// full code:
+//   const MyEditor = dynamic(() => import("./editor")), {
+//     ssr: false,
+//   });
+export default function Editor() {
   const {
     api: { saveFile },
     state: { activeFileId, openedFiles },
