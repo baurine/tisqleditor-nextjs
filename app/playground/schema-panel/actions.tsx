@@ -1,13 +1,13 @@
 "use client";
 
-import { ReloadIcon } from '@radix-ui/react-icons'
+import { RotateCwIcon } from "lucide-react";
 
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import { useSchemaQuery } from '@/hooks/use-schema-loader'
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useSchemaQuery } from "@/hooks/use-schema-loader";
 
 function ReloadButton() {
-  const { isFetching, refetch } = useSchemaQuery()
+  const { isFetching, refetch } = useSchemaQuery();
 
   return (
     <Button
@@ -17,9 +17,9 @@ function ReloadButton() {
       onClick={() => refetch()}
       disabled={isFetching}
     >
-      <ReloadIcon className={cn('h-4 w-4', { 'animate-spin': isFetching })} />
+      <RotateCwIcon className={cn("h-4 w-4", { "animate-spin": isFetching })} />
     </Button>
-  )
+  );
 }
 
 export function SchemaActions() {
@@ -27,5 +27,5 @@ export function SchemaActions() {
     <div className="flex gap-2 mt-4">
       <ReloadButton />
     </div>
-  )
+  );
 }

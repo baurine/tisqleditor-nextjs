@@ -1,17 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from 'react'
-import {
-  MinusIcon,
-  Pencil1Icon,
-  PlusIcon,
-  ReloadIcon
-} from '@radix-ui/react-icons'
-import dayjs from 'dayjs'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useEffect, useMemo, useState } from "react";
+import { MinusIcon, PencilIcon, PlusIcon, RotateCwIcon } from "lucide-react";
+import dayjs from "dayjs";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { useFilesContext } from '@/contexts/files-context'
-import { Button } from '@/components/ui/button'
+import { useFilesContext } from "@/contexts/files-context";
+import { Button } from "@/components/ui/button";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -20,41 +15,41 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger
-} from '@/components/ui/alert-dialog'
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
-} from '@/components/ui/dialog'
-import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
-import { useFilesQuery } from '@/hooks/use-files-loader'
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { useFilesQuery } from "@/hooks/use-files-loader";
 
 function AddFileButton() {
   const {
     state: { setAllFiles },
-    api: { addFile }
-  } = useFilesContext()
+    api: { addFile },
+  } = useFilesContext();
 
   async function handleAddFile() {
     const f = await addFile(
-      `file-${dayjs().format('MMDDHHmmss')}`,
-      '-- use {dbName};'
-    )
-    setAllFiles((pre) => [...pre, { ...f }])
+      `file-${dayjs().format("MMDDHHmmss")}`,
+      "-- use {dbName};"
+    );
+    setAllFiles((pre) => [...pre, { ...f }]);
   }
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const addFileMut = useMutation({
     mutationFn: handleAddFile,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['sql_files'] })
-    }
-  })
+      queryClient.invalidateQueries({ queryKey: ["sql_files"] });
+    },
+  });
 
   return (
     <Button
@@ -65,61 +60,61 @@ function AddFileButton() {
       disabled={addFileMut.isPending}
     >
       {addFileMut.isPending ? (
-        <ReloadIcon className="h-4 w-4 animate-spin" />
+        <RotateCwIcon className="h-4 w-4 animate-spin" />
       ) : (
         <PlusIcon className="h-4 w-4" />
       )}
     </Button>
-  )
+  );
 }
 
 function RenameFileDialog() {
   const {
     state: { allFiles, setAllFiles, activeFileId, setOpenedFiles },
-    api: { renameFile }
-  } = useFilesContext()
+    api: { renameFile },
+  } = useFilesContext();
 
   const oriFileName = useMemo(
-    () => allFiles.find((f) => f.id === activeFileId)?.name ?? '',
+    () => allFiles.find((f) => f.id === activeFileId)?.name ?? "",
     [allFiles, activeFileId]
-  )
-  const [newFileName, setNewFileName] = useState('')
+  );
+  const [newFileName, setNewFileName] = useState("");
   useEffect(() => {
-    setNewFileName(oriFileName)
-  }, [oriFileName])
+    setNewFileName(oriFileName);
+  }, [oriFileName]);
 
   async function handleRenameFile() {
     if (!activeFileId || newFileName === oriFileName) {
-      return
+      return;
     }
-    await renameFile(activeFileId, newFileName)
+    await renameFile(activeFileId, newFileName);
     setAllFiles((pre) => {
-      const next = [...pre]
-      const target = next.find((f) => f.id === activeFileId)
-      target!.name = newFileName
-      return next
-    })
+      const next = [...pre];
+      const target = next.find((f) => f.id === activeFileId);
+      target!.name = newFileName;
+      return next;
+    });
     setOpenedFiles((pre) => {
-      const pos = pre.findIndex((f) => f.id === activeFileId)
+      const pos = pre.findIndex((f) => f.id === activeFileId);
       if (pos >= 0) {
-        const next = [...pre]
-        next[pos].name = newFileName
-        return next
+        const next = [...pre];
+        next[pos].name = newFileName;
+        return next;
       }
-      return pre
-    })
+      return pre;
+    });
   }
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const renameFileMut = useMutation({
     mutationFn: handleRenameFile,
     onSuccess: () => {
-      setOpen(false)
-      queryClient.invalidateQueries({ queryKey: ['sql_files'] })
-    }
-  })
+      setOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["sql_files"] });
+    },
+  });
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -130,7 +125,7 @@ function RenameFileDialog() {
           className="h-8 w-8"
           disabled={!activeFileId}
         >
-          <Pencil1Icon className="h-4 w-4" />
+          <PencilIcon className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
@@ -150,14 +145,14 @@ function RenameFileDialog() {
             onClick={() => renameFileMut.mutate()}
           >
             {renameFileMut.isPending && (
-              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+              <RotateCwIcon className="mr-2 h-4 w-4 animate-spin" />
             )}
             Save changes
           </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
 
 function DelFileAlertDialog() {
@@ -168,39 +163,39 @@ function DelFileAlertDialog() {
       activeFileId,
       setActiveFileId,
       openedFiles,
-      setOpenedFiles
+      setOpenedFiles,
     },
-    api: { delFile }
-  } = useFilesContext()
+    api: { delFile },
+  } = useFilesContext();
 
   const fileName = useMemo(
-    () => allFiles.find((f) => f.id === activeFileId)?.name ?? '',
+    () => allFiles.find((f) => f.id === activeFileId)?.name ?? "",
     [allFiles, activeFileId]
-  )
+  );
 
   async function handleDeleteFile() {
     if (!activeFileId) {
-      return
+      return;
     }
-    await delFile(activeFileId)
-    setAllFiles((pre) => pre.filter((f) => f.id !== activeFileId))
+    await delFile(activeFileId);
+    setAllFiles((pre) => pre.filter((f) => f.id !== activeFileId));
 
-    const nextOpenedFiles = openedFiles.filter((f) => f.id !== activeFileId)
-    setOpenedFiles(nextOpenedFiles)
+    const nextOpenedFiles = openedFiles.filter((f) => f.id !== activeFileId);
+    setOpenedFiles(nextOpenedFiles);
 
-    setActiveFileId(nextOpenedFiles[0]?.id ?? null)
+    setActiveFileId(nextOpenedFiles[0]?.id ?? null);
   }
 
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
   const delFileMut = useMutation({
     mutationFn: handleDeleteFile,
     onSuccess: () => {
-      setOpen(false)
-      queryClient.invalidateQueries({ queryKey: ['sql_files'] })
-    }
-  })
+      setOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["sql_files"] });
+    },
+  });
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
@@ -233,18 +228,18 @@ function DelFileAlertDialog() {
             onClick={() => delFileMut.mutate()}
           >
             {delFileMut.isPending && (
-              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+              <RotateCwIcon className="mr-2 h-4 w-4 animate-spin" />
             )}
             Continue
           </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }
 
 function ReloadButton() {
-  const { isFetching, refetch } = useFilesQuery()
+  const { isFetching, refetch } = useFilesQuery();
 
   return (
     <Button
@@ -254,9 +249,9 @@ function ReloadButton() {
       onClick={() => refetch()}
       disabled={isFetching}
     >
-      <ReloadIcon className={cn('h-4 w-4', { 'animate-spin': isFetching })} />
+      <RotateCwIcon className={cn("h-4 w-4", { "animate-spin": isFetching })} />
     </Button>
-  )
+  );
 }
 
 export function FilesActions() {
@@ -267,5 +262,5 @@ export function FilesActions() {
       <DelFileAlertDialog />
       <ReloadButton />
     </div>
-  )
+  );
 }

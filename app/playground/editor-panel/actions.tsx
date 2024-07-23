@@ -1,6 +1,6 @@
 "use client";
 
-import { GitHubLogoIcon, PlayIcon, ReloadIcon } from "@radix-ui/react-icons";
+import { GithubIcon, PlayIcon, RotateCwIcon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 
 // import { DarkModeToggle } from '@/components/darkmode-toggle/toggle'
@@ -64,7 +64,7 @@ export function EditorActions() {
         disabled={runSQLMut.isPending}
       >
         {runSQLMut.isPending ? (
-          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+          <RotateCwIcon className="mr-2 h-4 w-4 animate-spin" />
         ) : (
           <PlayIcon className="mr-2 h-4 w-4" />
         )}
@@ -78,7 +78,7 @@ export function EditorActions() {
 
       <Button variant="ghost" size="icon">
         <a href="https://github.com/tidbcloud/tisqleditor" target="_blank">
-          <GitHubLogoIcon className="h-4 w-4" />
+          <GithubIcon className="h-4 w-4" />
         </a>
       </Button>
     </div>

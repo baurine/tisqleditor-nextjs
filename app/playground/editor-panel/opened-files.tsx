@@ -1,58 +1,58 @@
 "use client";
 
-import { Cross1Icon } from '@radix-ui/react-icons'
+import { XIcon } from "lucide-react";
 
-import { useEditorCacheContext } from '@tidbcloud/tisqleditor-react'
-import { Button } from '@/components/ui/button'
-import { IFile, useFilesContext } from '@/contexts/files-context'
+import { useEditorCacheContext } from "@tidbcloud/tisqleditor-react";
+import { Button } from "@/components/ui/button";
+import { IFile, useFilesContext } from "@/contexts/files-context";
 
 export function OpenedFilesTabs() {
   const {
     api: { saveFile },
-    state: { openedFiles, setOpenedFiles, activeFileId, setActiveFileId }
-  } = useFilesContext()
-  const cacheCtx = useEditorCacheContext()
+    state: { openedFiles, setOpenedFiles, activeFileId, setActiveFileId },
+  } = useFilesContext();
+  const cacheCtx = useEditorCacheContext();
 
   function handleCloseFile(file: IFile) {
-    const next = openedFiles.filter((f) => f.id !== file.id)
-    setOpenedFiles(next)
+    const next = openedFiles.filter((f) => f.id !== file.id);
+    setOpenedFiles(next);
 
     // save if changed
-    const editorInst = cacheCtx.getEditor(file.id)
+    const editorInst = cacheCtx.getEditor(file.id);
     if (editorInst) {
-      const editorDoc = editorInst.editorView.state.doc.toString()
+      const editorDoc = editorInst.editorView.state.doc.toString();
       if (editorDoc !== file.content) {
-        saveFile(file.id, editorDoc)
+        saveFile(file.id, editorDoc);
       }
     }
 
     // cleanup
-    cacheCtx.deleteEditor(file.id)
+    cacheCtx.deleteEditor(file.id);
 
     // close active file
     if (activeFileId === file.id) {
       if (next.length > 0) {
-        setActiveFileId(next[0].id)
+        setActiveFileId(next[0].id);
       } else {
         // setActiveFileId(null)
-        setActiveFileId('')
+        setActiveFileId("");
       }
     }
   }
 
   function handleSwitchFile(file: IFile) {
-    if (activeFileId === file.id) return
+    if (activeFileId === file.id) return;
 
-    setActiveFileId(file.id)
+    setActiveFileId(file.id);
 
     // save pre file if changed
     if (activeFileId) {
-      const preFile = openedFiles.find((f) => f.id === activeFileId)
-      const editorInst = cacheCtx.getEditor(activeFileId)
+      const preFile = openedFiles.find((f) => f.id === activeFileId);
+      const editorInst = cacheCtx.getEditor(activeFileId);
       if (preFile && editorInst) {
-        const editorDoc = editorInst.editorView.state.doc.toString()
+        const editorDoc = editorInst.editorView.state.doc.toString();
         if (editorDoc !== preFile.content) {
-          saveFile(preFile.id, editorDoc)
+          saveFile(preFile.id, editorDoc);
         }
       }
     }
@@ -75,15 +75,15 @@ export function OpenedFilesTabs() {
             size="sm"
             className="h-4 w-4 p-0 ml-1 group-hover:visible invisible"
             onClick={(event) => {
-              event.stopPropagation() // prevent handleSwitchFile
-              handleCloseFile(f)
+              event.stopPropagation(); // prevent handleSwitchFile
+              handleCloseFile(f);
             }}
           >
-            <Cross1Icon className="h-2 w-2" />
+            <XIcon className="h-2 w-2" />
           </Button>
         </div>
       ))}
       <div className="flex-grow border-b"></div>
     </div>
-  )
+  );
 }
