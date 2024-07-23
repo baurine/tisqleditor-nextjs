@@ -1,4 +1,8 @@
+"use client";
+
 import { useMemo, useRef } from "react";
+import { useTheme } from "next-themes";
+// import dynamic from "next/dynamic";
 
 import { EditorView, placeholder } from "@codemirror/view";
 import { EditorState } from "@codemirror/state";
@@ -9,7 +13,7 @@ import { saveHelper } from "@tidbcloud/codemirror-extension-save-helper";
 import { bbedit, oneDark } from "@tidbcloud/codemirror-extension-themes";
 import { curSqlGutter } from "@tidbcloud/codemirror-extension-cur-sql-gutter";
 import {
-  useDbLinter,
+  useDbLinter as checkUseDbLinter,
   fullWidthCharLinter,
 } from "@tidbcloud/codemirror-extension-linters";
 import { sqlAutoCompletion } from "@tidbcloud/codemirror-extension-sql-autocomplete";
@@ -22,7 +26,11 @@ import { getCurDatabase } from "@tidbcloud/codemirror-extension-cur-sql";
 import { useFilesContext } from "@/contexts/files-context";
 import { SchemaRes, useSchemaContext } from "@/contexts/schema-context";
 import { useChatContext } from "@/contexts/chat-context";
-import { useTheme } from "next-themes";
+
+// const SQLEditor = dynamic(
+//   () => import("@tidbcloud/tisqleditor-react").then((mod) => mod.SQLEditor),
+//   { ssr: false }
+// );
 
 function convertSchemaToSQLConfig(dbList: SchemaRes): SQLConfig {
   const schema: any = {};
@@ -91,7 +99,7 @@ export function Editor() {
             return isUnifiedMergeViewActive(view.state);
           },
         }),
-        useDbLinter({
+        checkUseDbLinter({
           whenDisable: (_view) => {
             return false;
           },

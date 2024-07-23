@@ -1,6 +1,10 @@
-import { EditorActions } from './actions'
-import { Editor } from './editor'
-import { OpenedFilesTabs } from './opened-files'
+import dynamic from "next/dynamic";
+import { EditorActions } from "./actions";
+import { OpenedFilesTabs } from "./opened-files";
+
+const MyEditor = dynamic(() => import("./editor").then((mod) => mod.Editor), {
+  ssr: false,
+});
 
 export function EditorPanel() {
   return (
@@ -10,8 +14,8 @@ export function EditorPanel() {
         <EditorActions />
       </div>
       <div className="flex-auto overflow-auto">
-        <Editor />
+        <MyEditor />
       </div>
     </div>
-  )
+  );
 }

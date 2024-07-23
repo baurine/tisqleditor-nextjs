@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect } from 'react'
 
 import { IFile, useFilesContext } from '@/contexts/files-context'

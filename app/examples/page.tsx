@@ -41,9 +41,7 @@ export default function Page({
             <div className="mr-auto"></div>
 
             <Button variant="outline">
-              <a href={`/?`} target="_blank">
-                Playground
-              </a>
+              <Link href={`/playground`}>Playground</Link>
             </Button>
             <Button variant="ghost" size="icon">
               <a
