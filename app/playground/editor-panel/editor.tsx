@@ -55,8 +55,7 @@ function convertSchemaToSQLConfig(dbList: SchemaRes): SQLConfig {
 }
 
 // wholly shit!
-// when I use `export function Editor`, and dynamic load this file, next.js still reports prerender error, `ReferenceError: navigator is not defined`
-// after running `pnpm build`.
+// when I use `export function Editor`, and dynamic load this file, next.js still reports prerender error, `ReferenceError: navigator is not defined` after running `pnpm build`.
 // full code:
 //   const MyEditor = dynamic(() => import("./editor").then((mod) => mod.Editor), {
 //     ssr: false,

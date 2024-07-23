@@ -3,6 +3,7 @@
 import { XIcon } from "lucide-react";
 
 import { useEditorCacheContext } from "@tidbcloud/tisqleditor-react";
+
 import { Button } from "@/components/ui/button";
 import { IFile, useFilesContext } from "@/contexts/files-context";
 

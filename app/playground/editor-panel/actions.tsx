@@ -1,17 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { GithubIcon, PlayIcon, RotateCwIcon } from "lucide-react";
 import { useMutation } from "@tanstack/react-query";
 
-// import { DarkModeToggle } from '@/components/darkmode-toggle/toggle'
+import { useEditorCacheContext } from "@tidbcloud/tisqleditor-react";
+import { SqlStatement } from "@tidbcloud/codemirror-extension-sql-parser";
+
+import { ModeToggle } from "@/components/biz/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { useFilesContext } from "@/contexts/files-context";
 import { useStatementContext } from "@/contexts/statement-context";
-
-import { useEditorCacheContext } from "@tidbcloud/tisqleditor-react";
-import { SqlStatement } from "@tidbcloud/codemirror-extension-sql-parser";
-import { ModeToggle } from "@/components/biz/theme-toggle";
-import Link from "next/link";
 
 export function EditorActions() {
   const {
@@ -73,9 +72,7 @@ export function EditorActions() {
       <Button variant="outline" size="sm" className="mr-2">
         <Link href="/examples">Examples</Link>
       </Button>
-      {/* <DarkModeToggle /> */}
       <ModeToggle />
-
       <Button variant="ghost" size="icon">
         <a href="https://github.com/tidbcloud/tisqleditor" target="_blank">
           <GithubIcon className="h-4 w-4" />
