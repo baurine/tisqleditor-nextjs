@@ -74,7 +74,8 @@ export default function Editor() {
     state: { activeFileId, openedFiles },
   } = useFilesContext();
 
-  const { systemTheme } = useTheme();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   const { schema } = useSchemaContext();
   const sqlConfig = useMemo(
@@ -146,7 +147,7 @@ export default function Editor() {
         className="h-full"
         editorId="loading"
         doc=""
-        theme={systemTheme === "dark" ? oneDark : bbedit}
+        theme={isDark ? oneDark : bbedit}
         extraExts={[
           placeholder("loading..."),
           // both needed to prevent user from typing
@@ -163,7 +164,7 @@ export default function Editor() {
       editorId={activeFile.id}
       doc={activeFile.content}
       sqlConfig={sqlConfig}
-      theme={systemTheme === "dark" ? oneDark : bbedit}
+      theme={isDark ? oneDark : bbedit}
       extraExts={extraExts}
     />
   );
