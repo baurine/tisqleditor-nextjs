@@ -1,4 +1,4 @@
-import { Github, Fullscreen } from "lucide-react";
+import { GithubIcon, FullscreenIcon } from "lucide-react";
 import Link from "next/link";
 
 import { DynamicEditorExample } from "@/components/biz/dynamic-editor-example";
@@ -34,23 +34,21 @@ export default function Page({
             <EditorThemeSelect />
             <Button variant="ghost" size="icon">
               <Link href={`/example?ex=${ex}&theme=${editorTheme}`}>
-                <Fullscreen className="h-4 w-4" />
+                <FullscreenIcon className="h-4 w-4" />
               </Link>
             </Button>
 
             <div className="mr-auto"></div>
 
             <Button variant="outline">
-              <a href={`/?`} target="_blank">
-                Playground
-              </a>
+              <Link href={`/playground`}>Playground</Link>
             </Button>
             <Button variant="ghost" size="icon">
               <a
                 href="https://github.com/tidbcloud/tisqleditor"
                 target="_blank"
               >
-                <Github className="h-4 w-4" />
+                <GithubIcon className="h-4 w-4" />
               </a>
             </Button>
           </div>
