@@ -30,6 +30,7 @@
     "@tidbcloud/codemirror-extension-sql-autocomplete": "^0.0.6",
     "@tidbcloud/codemirror-extension-sql-parser": "^0.0.6",
     "@tidbcloud/codemirror-extension-themes": "^0.0.6",
+    "@tidbcloud/serverless": "^0.2.0",
     "@tidbcloud/tisqleditor-react": "^0.0.6",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",

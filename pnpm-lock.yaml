@@ -71,6 +71,9 @@ importers:
       '@tidbcloud/codemirror-extension-themes':
         specifier: ^0.0.6
         version: 0.0.6(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.28.4)(@lezer/highlight@1.2.0)
+      '@tidbcloud/serverless':
+        specifier: ^0.2.0
+        version: 0.2.0
       '@tidbcloud/tisqleditor-react':
         specifier: ^0.0.6
         version: 0.0.6(@codemirror/autocomplete@6.17.0(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.28.4)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/lang-sql@6.7.0(@codemirror/view@6.28.4))(@codemirror/language@6.10.2)(@codemirror/lint@6.8.1)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.28.4)(react@18.3.1)
@@ -788,6 +791,10 @@ packages:
       '@codemirror/state': ^6.4.1
       '@codemirror/view': ^6.26.3
       '@lezer/highlight': ^1.2.0
+
+  '@tidbcloud/serverless@0.2.0':
+    resolution: {integrity: sha512-UGmMa9hYeRVcmDjsUE/vNYbsiS4PGHU2M9Y+DFyMUu6gRMxXOfda6rTTnuHQ5OzUsbk6AfV4gtJoEUWvmpBpJw==}
+    engines: {node: '>=16'}
 
   '@tidbcloud/tisqleditor-react@0.0.6':
     resolution: {integrity: sha512-Bx/iCNRwKzTLzCLUqeYKUXypJEgogtAgBGFs7hYZ2gpTwDIaYtZqEtuXcSwjTQYJDYxc5irJ+TVukD9Vu7Htlw==}
@@ -2924,6 +2931,8 @@ snapshots:
       '@codemirror/state': 6.4.1
       '@codemirror/view': 6.28.4
       '@lezer/highlight': 1.2.0
+
+  '@tidbcloud/serverless@0.2.0': {}
 
   '@tidbcloud/tisqleditor-react@0.0.6(@codemirror/autocomplete@6.17.0(@codemirror/language@6.10.2)(@codemirror/state@6.4.1)(@codemirror/view@6.28.4)(@lezer/common@1.2.1))(@codemirror/commands@6.3.3)(@codemirror/lang-sql@6.7.0(@codemirror/view@6.28.4))(@codemirror/language@6.10.2)(@codemirror/lint@6.8.1)(@codemirror/search@6.5.6)(@codemirror/state@6.4.1)(@codemirror/view@6.28.4)(react@18.3.1)':
     dependencies:
