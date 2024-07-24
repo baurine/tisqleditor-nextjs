@@ -15,7 +15,7 @@ const nextConfig = {
       // Basic redirect
       {
         source: "/",
-        destination: "/examples",
+        destination: "/playground",
         permanent: true,
       },
     ];
