@@ -157,7 +157,7 @@ export async function refineSql(
     //       "session_id": "yyy"
     //   }
     // }
-    const res = await fetch(`/api/refineSql`, {
+    const res = await fetch(`/api/refine-sql`, {
       method: 'POST',
       body: JSON.stringify(params)
     })
